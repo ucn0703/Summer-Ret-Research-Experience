@@ -1,0 +1,19 @@
+<document>
+	<title>Types of Animals</title>
+	<authors>
+		<author>Bob</author>
+		<author>Alice</author>
+	</authors>
+	<content>
+		<animals>
+			<animal>
+				<name>Dog</name>
+				<description>Dogs are man's best friends</description>
+			</animal>
+			<animal>
+				<name>Cat</name>
+				<description>Cats love staying at home.</description>
+			</animal>
+		</animals>
+	</content>
+</document>
