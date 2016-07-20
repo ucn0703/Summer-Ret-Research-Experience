@@ -35,8 +35,20 @@ for file_name in os.listdir(folder_with_xml_files):
 	# Step 2. How can we use the "find" and "findall" functions to find the content in the tags we are interested in? [Fill in code]
 	# Put all sentences in list_of_sentences
 	list_of_sentences = []
+	title = root.find("title").text
+	list_of_sentences.append(title)
+	section_list = root.find('content').find('sections').findall('section')
+	for S in section_list: 
+		section_title = S.find('title').text	
+		list_of_sentences.append(section_title)
+		paragraphs = S.find('paragraphs')
+		paragraph_list = paragraphs.findall('paragraph')
+		for P in paragraph_list:
+			for x in P:
+				text = x.find('text').text
+				list_of_sentences.append(text)
 
-
+  
 	# Step 3. Write all sentences out to a new file. [Done]
 	# Open the output file.
 	output_file = open(output_file_name, 'w')
