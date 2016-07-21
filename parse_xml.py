@@ -17,46 +17,49 @@ output_file_name = sys.argv[2]
 
 # Iterate over each file in the folder.
 for file_name in os.listdir(folder_with_xml_files):
-	
-	# Open the file and get the root of the file.
-	element_tree = ElementTree.parse(os.path.abspath(file_name))
+	if not file_name.endswith('.sci.xml'):
+		# Open the file and get the root of the file.
+		element_tree = ElementTree.parse(folder_with_xml_files+'/'+file_name)
 
-	# Get the root of the element tree
-	root = element_tree.getroot()
+		# Get the root of the element tree
+		root = element_tree.getroot()
 
 
-	### TODO ###
+		### TODO ###
 
-	# Step 1. What are the names and paths of the XML tags we are interested in? [Done]
-	# root -> title
-	# root -> content -> sections -> section -> title
-	# root -> content -> sections -> section -> paragraphs -> paragraph -> sentence -> text
+		# Step 1. What are the names and paths of the XML tags we are interested in? [Done]
+		# root -> title
+		# root -> content -> sections -> section -> title
+		# root -> content -> sections -> section -> paragraphs -> paragraph -> sentence -> text
 
-	# Step 2. How can we use the "find" and "findall" functions to find the content in the tags we are interested in? [Fill in code]
-	# Put all sentences in list_of_sentences
-	list_of_sentences = []
-	title = root.find("title").text
-	list_of_sentences.append(title)
-	section_list = root.find('content').find('sections').findall('section')
-	for S in section_list: 
-		section_title = S.find('title').text	
-		list_of_sentences.append(section_title)
-		paragraphs = S.find('paragraphs')
-		paragraph_list = paragraphs.findall('paragraph')
-		for P in paragraph_list:
-			for x in P:
-				text = x.find('text').text
-				list_of_sentences.append(text)
+		# Step 2. How can we use the "find" and "findall" functions to find the content in the tags we are interested in? [Fill in code]
+		# Put all sentences in list_of_sentences
+		list_of_sentences = []
+		print file_name
+		print root
+		print root.find["title"]
+		title = root.find("title").text
+		list_of_sentences.append(title)
+		section_list = root.find('content').find('sections').findall('section')
+		for S in section_list: 
+			section_title = S.find('title').text	
+			list_of_sentences.append(section_title)
+			paragraphs = S.find('paragraphs')
+			paragraph_list = paragraphs.findall('paragraph')
+			for P in paragraph_list:
+				for x in P:
+					text = x.find('text').text
+					list_of_sentences.append(text)
 
-  
-	# Step 3. Write all sentences out to a new file. [Done]
-	# Open the output file.
-	output_file = open(output_file_name, 'w')
+	  
+		# Step 3. Write all sentences out to a new file. [Done]
+		# Open the output file.
+		output_file = open(output_file_name, 'w')
 
-	# for each sentence in list_of_sentences
-	for sentence in list_of_sentences:
+		# for each sentence in list_of_sentences
+		for sentence in list_of_sentences:
 
-		# Write a sentence to the file.
-		output_file.write(sentence + '\n')
+			# Write a sentence to the file.
+			output_file.write(sentence + '\n')
 
 
